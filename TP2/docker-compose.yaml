@@ -1,0 +1,67 @@
+services:
+  client_bdd:
+    image: mysql:9.4.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=CarPart
+      - MYSQL_USER=carpart
+      - MYSQL_PASSWORD=carpart
+    volumes:
+      - mysql-client-data:/var/lib/mysql
+      - ./bdd/client:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+    container_name: client_bdd
+  
+  commande_bdd:
+    image: mysql:9.4.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=CarPart
+      - MYSQL_USER=carpart
+      - MYSQL_PASSWORD=carpart
+      - MYSQL_TCP_PORT=3306
+    volumes:
+      - mysql-order-data:/var/lib/mysql
+      - ./bdd/commande:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+    container_name: commande_bdd
+
+  api_client:
+    build:
+      context: ./api_client
+    ports:
+      - 8080:8000
+    environment:
+      - HOST=client_bdd
+      - USER=carpart
+      - PASSWORD=carpart
+      - DATABASE=CarPart
+    depends_on:
+      - client_bdd
+    networks:
+      - app-network
+  
+  api_commande:
+    build:
+      context: ./api_commande
+    ports:
+      - 8081:8000
+    environment:
+      - HOST=commande_bdd
+      - USER=carpart
+      - PASSWORD=carpart
+      - DATABASE=CarPart
+    depends_on:
+      - commande_bdd
+    networks:
+      - app-network
+  
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-client-data:
+  mysql-order-data:

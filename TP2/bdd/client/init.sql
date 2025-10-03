@@ -1,0 +1,8 @@
+USE CarPart;
+
+CREATE TABLE clients (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE
+);
