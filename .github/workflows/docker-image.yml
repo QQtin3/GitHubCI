@@ -27,11 +27,11 @@ jobs:
         with:
           context: ./TP1/api
           push: true
-          tags: ${{ vars.DOCKER_USERNAME }}/tp1-api:latest
+          tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:api-latest
 
       - name: Build et push l image BDD du TP1 
         uses: docker/build-push-action@v6
         with:
           context: ./TP1/bdd
           push: true
-          tags: ${{ vars.DOCKER_USERNAME }}/tp1-bdd:latest
+          tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:bdd-latest
