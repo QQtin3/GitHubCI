@@ -1,22 +1,22 @@
 services:
   client_bdd:
-    image: mysql:9.4.0
+    build:
+      context: ./bdd/client
     env_file:
       - .env
     volumes:
       - mysql-client-data:/var/lib/mysql
-      - ./bdd/client:/docker-entrypoint-initdb.d
     networks:
       - app-network
     container_name: client_bdd
   
   commande_bdd:
-    image: mysql:9.4.0
+    build:
+      context: ./bdd/commande
     env_file:
       - .env
     volumes:
       - mysql-order-data:/var/lib/mysql
-      - ./bdd/commande:/docker-entrypoint-initdb.d
     networks:
       - app-network
     container_name: commande_bdd
