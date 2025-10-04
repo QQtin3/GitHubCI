@@ -36,9 +36,30 @@ jobs:
           push: true
           tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:bdd-latest
 
-      - name: Build et push l image BDD du TP1 
+      - name: Build et push l image BDD Client du TP2 
         uses: docker/build-push-action@v6
         with:
-          context: ./TP2
+          context: ./TP2/bdd/client
           push: true
-          tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:tp2-latest     
+          tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:bddclient-latest
+
+      - name: Build et push l image BDD Commande du TP2 
+        uses: docker/build-push-action@v6
+        with:
+          context: ./TP2/bdd/commande
+          push: true
+          tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:bddcommande-latest 
+
+      - name: Build et push l image API Client du TP2 
+        uses: docker/build-push-action@v6
+        with:
+          context: ./TP2/api_client
+          push: true
+          tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:apiclient-latest
+
+      - name: Build et push l image API Commande du TP2 
+        uses: docker/build-push-action@v6
+        with:
+          context: ./TP2/api_commande
+          push: true
+          tags: ${{ vars.DOCKER_USERNAME }}/carpart_tp:apicommande-latest  
